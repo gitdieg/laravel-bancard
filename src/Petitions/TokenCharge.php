@@ -43,7 +43,10 @@ class TokenCharge extends Petition
                 'currency' => $this->payload->currency, 
                 'additional_data' => "{$this->payload->additional_data}",
                 'description' => $this->payload->description, 
-                'alias_token' => $this->aliasToken
+                'alias_token' => $this->aliasToken,
+                'extra_response_attributes'=> [  // se agrega parametro requerido por bancard.
+                     'confirmation.process_id'
+                ]
             ]
         ];
 
@@ -54,11 +57,10 @@ class TokenCharge extends Petition
     }
 
     public function handlePayload(array $data = []): void
-    {
+    {   if(!empty($data['process_id'])) return;
         $securityInformation = $data['security_information'];
         unset($data['security_information']);
         $confirmation = array_merge($data, $securityInformation, ['command' => 'charge']);
-
         ConfirmationModel::create($confirmation);
     }
 }

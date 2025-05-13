@@ -20,7 +20,7 @@ class Bancard
 {
     public static string $production = 'https://vpos.infonet.com.py';
     public static string $staging = 'https://vpos.infonet.com.py:8888';
-    public static string $script = 'checkout/javascript/dist/bancard-checkout-3.0.0.js';
+    public static string $script = 'checkout/javascript/dist/bancard-checkout-5.0.1.js';
 
     public static function isStaging(): bool
     {
